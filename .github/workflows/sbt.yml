@@ -14,7 +14,7 @@ jobs:
 
     - name: Install SBT
       run: |
-        choco install sbt -y
+        choco install sbt 1.10.11
 
     - name: Check SBT Version
       run: |
