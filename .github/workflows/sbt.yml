@@ -1,0 +1,21 @@
+name: Check SBT Version
+
+on: [push,pull_request]
+ 
+
+jobs:
+  check-sbt-version:
+    runs-on: windows-latest
+
+    steps:
+    - name: Set up Chocolatey
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+
+    - name: Install SBT
+      run: |
+        choco install sbt -y
+
+    - name: Check SBT Version
+      run: |
+        sbt sbtVersion
