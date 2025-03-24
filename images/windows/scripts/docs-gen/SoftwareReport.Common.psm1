@@ -166,7 +166,12 @@ function Get-GradleVersion {
 }
 
 function Get-SbtVersion {
-    (sbt -version) -match "sbt runner" | Get-StringPart -Part 3
+    $sbtVersionOutput = sbt -version
+    if ($sbtVersionOutput -match "sbt version (?<version>\d+\.\d+\.\d+)") {
+        return $matches['version']
+    } else {
+        throw "Unable to determine sbt version."
+    }
 }
 
 function Get-DotnetSdks {
