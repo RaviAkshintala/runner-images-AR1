@@ -1,0 +1,47 @@
+name: Check Network Configuration
+
+on: [push,pull_request]
+
+jobs:
+  check_network:
+    runs-on: ubuntu-latest  # or `windows-latest` or `macos-latest`
+
+    steps:
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v2
+
+    - name: Check runner's IP configuration (IPv4 vs IPv6)
+      run: |
+        echo "Checking IP configuration..."
+        ip a  # Check network interfaces, IPv4 and IPv6 info
+        
+    - name: Check Docker version and info
+      run: |
+        echo "Docker Version:"
+        docker --version
+        echo "Docker Info:"
+        docker info
+
+    - name: List Docker networks
+      run: |
+        echo "Listing Docker networks..."
+        docker network ls
+
+    - name: Inspect Docker networks
+      run: |
+        echo "Inspecting default Docker network..."
+        docker network inspect bridge  # You can replace `bridge` with the relevant network name
+        
+    - name: Test IPv6 availability in Docker
+      run: |
+        echo "Testing IPv6 availability in Docker..."
+        docker network create --driver=bridge --ipv6 my_test_network || echo "IPv6 not available"
+        docker network inspect my_test_network || echo "Failed to inspect the network"
+        docker network rm my_test_network  # Clean up the test network
+
+    - name: Test IPv4 availability in Docker
+      run: |
+        echo "Testing IPv4 availability in Docker..."
+        docker network create --driver=bridge my_test_network_ipv4 || echo "IPv4 network creation failed"
+        docker network inspect my_test_network_ipv4 || echo "Failed to inspect the IPv4 network"
+        docker network rm my_test_network_ipv4  # Clean up the test network
