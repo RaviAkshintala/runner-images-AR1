@@ -1,0 +1,23 @@
+name: Retrieve and Print WSL2 Signature
+
+on: [push, pull_request]
+
+
+jobs:
+  get-signature:
+    runs-on: windows-2025
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Download WSL2 Installer
+      run: wget https://github.com/microsoft/WSL/releases/download/2.4.13/wsl.2.4.13.0.x64.msi -O wsl2_installer.msi
+
+    - name: Get Signature
+      run: |
+        openssl dgst -sha256 wsl2_installer.msi > signature.txt
+        cat signature.txt
+
+    - name: Print Signature
+      run: cat signature.txt
