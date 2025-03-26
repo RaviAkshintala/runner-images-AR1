@@ -369,7 +369,7 @@ provisioner "powershell" {
       "${path.root}/../scripts/build/Install-MongoDB.ps1",
       "${path.root}/../scripts/build/Install-CodeQLBundle.ps1",
       "${path.root}/../scripts/build/Configure-Diagnostics.ps1"
-      "${path.root}/../scripts/build/Install-NSIS.ps1"
+    
     ]
   }
 
