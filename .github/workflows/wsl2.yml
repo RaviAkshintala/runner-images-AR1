@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Download WSL2 Installer
-      run: wget https://github.com/microsoft/WSL/releases/download/2.4.13/wsl.2.4.13.0.x64.msi -O wsl2_installer.msi
+      run: curl https://github.com/microsoft/WSL/releases/download/2.4.13/wsl.2.4.13.0.x64.msi -O wsl2_installer.msi
 
     - name: Get Signature
       run: |
