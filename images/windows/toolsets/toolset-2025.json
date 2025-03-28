@@ -318,7 +318,7 @@
     },
 
     "llvm": {
-        "version": "19"
+        "version": "20"
     },
     "php": {
         "version": "8.4"
